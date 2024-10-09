@@ -14,10 +14,10 @@ public class Field_Centric extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         // Declare our motors
         // Make sure your ID's match your configuration
-        DcMotor frontLeftMotor = hardwareMap.dcMotor.get("FL");
-        DcMotor backLeftMotor = hardwareMap.dcMotor.get("BL");
-        DcMotor frontRightMotor = hardwareMap.dcMotor.get("FR");
-        DcMotor backRightMotor = hardwareMap.dcMotor.get("BR");
+        DcMotor frontLeftMotor = hardwareMap.dcMotor.get("motorFL");
+        DcMotor backLeftMotor = hardwareMap.dcMotor.get("motorBL");
+        DcMotor frontRightMotor = hardwareMap.dcMotor.get("motorFR");
+        DcMotor backRightMotor = hardwareMap.dcMotor.get("motorBR");
 
         // Retrieve the IMU from the hardware map
         IMU imu = hardwareMap.get(IMU.class, "IMU");

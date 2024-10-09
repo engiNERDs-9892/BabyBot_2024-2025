@@ -18,10 +18,10 @@ public class Robot_Centric extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        motorFL = hardwareMap.dcMotor.get("FL");
-        motorBL = hardwareMap.dcMotor.get("BL");
-        motorFR = hardwareMap.dcMotor.get("FR");
-        motorBR = hardwareMap.dcMotor.get("BR");
+        motorFL = hardwareMap.dcMotor.get("motorFL");
+        motorBL = hardwareMap.dcMotor.get("motorBL");
+        motorFR = hardwareMap.dcMotor.get("motorFR");
+        motorBR = hardwareMap.dcMotor.get("motorBR");
 
 
 
