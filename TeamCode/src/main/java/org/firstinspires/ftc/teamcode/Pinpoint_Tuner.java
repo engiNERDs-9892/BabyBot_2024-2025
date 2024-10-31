@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import android.icu.text.UFormat;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -45,6 +47,10 @@ public class Pinpoint_Tuner extends LinearOpMode {
         odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
         odo.resetPosAndIMU();
 
+        FtcDashboard dashboard = FtcDashboard.getInstance();
+        TelemetryPacket packet = new TelemetryPacket();
+        dashboard.sendTelemetryPacket(packet);
+
         waitForStart();
 
         if (isStopRequested()) return;
@@ -84,6 +90,13 @@ public class Pinpoint_Tuner extends LinearOpMode {
             //In normal people coords so I can actually comprehend them
             double predicted_x = radius * Math.cos(angle);
             double predicted_y = radius * Math.sin(angle);
+
+
+            packet = new TelemetryPacket();
+            packet.fieldOverlay()
+                    .setFill("blue")
+                    .fillRect(-position.getY(DistanceUnit.MM), position.getX(DistanceUnit.MM), 20, 20);
+            dashboard.sendTelemetryPacket(packet);
 
             telemetry.addData("Position",
                     "X: %.2f Y: %.2f H: %.2f",
