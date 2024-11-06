@@ -45,10 +45,10 @@ public class PinpointLocalizer implements Localizer {
         lastEncPositions = lastTrackingEncPositions;
         lastEncVels = lastTrackingEncVels;
 
-        //leftEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "leftEncoder"));
-        //rightEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "rightEncoder"));
-        //frontEncoder = new Encoder(hardwareMap.get(DcMotorEx.class, "frontEncoder"));
+
         odo = hardwareMap.get(GoBildaPinpointDriver.class,"odo");
+        odo.setOffsets(105, 0);
+        odo.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD);
         odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
         odo.resetPosAndIMU();
         // TODO: reverse any encoders using Encoder.setDirection(Encoder.Direction.REVERSE)
@@ -61,7 +61,7 @@ public class PinpointLocalizer implements Localizer {
     @Override
     public Pose2d getPoseEstimate() {
         Pose2D pose = odo.getPosition();
-        return new Pose2d(pose.getX(DistanceUnit.MM), pose.getY(DistanceUnit.MM), pose.getHeading(AngleUnit.DEGREES));
+        return new Pose2d(pose.getX(DistanceUnit.INCH), pose.getY(DistanceUnit.INCH), pose.getHeading(AngleUnit.RADIANS));
     }
 
     @Override
@@ -73,7 +73,7 @@ public class PinpointLocalizer implements Localizer {
     @Override
     public Pose2d getPoseVelocity() {
         Pose2D pose = odo.getVelocity();
-        return new Pose2d(pose.getX(DistanceUnit.MM), pose.getY(DistanceUnit.MM), pose.getHeading(AngleUnit.DEGREES));
+        return new Pose2d(pose.getX(DistanceUnit.INCH), pose.getY(DistanceUnit.INCH), pose.getHeading(AngleUnit.RADIANS));
     }
 
     @Override
