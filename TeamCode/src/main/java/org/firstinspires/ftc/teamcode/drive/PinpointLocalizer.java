@@ -47,7 +47,7 @@ public class PinpointLocalizer implements Localizer {
 
 
         odo = hardwareMap.get(GoBildaPinpointDriver.class,"odo");
-        odo.setOffsets(105, 0);
+        odo.setOffsets(107, 0);
         odo.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD);
         odo.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
         odo.resetPosAndIMU();
@@ -66,7 +66,8 @@ public class PinpointLocalizer implements Localizer {
 
     @Override
     public void setPoseEstimate(@NonNull Pose2d pose2d) {
-
+        Pose2D pose = new Pose2D(DistanceUnit.INCH, pose2d.getX(), pose2d.getY(), AngleUnit.RADIANS, pose2d.getHeading());
+        odo.setPosition(pose);
     }
 
     @Nullable
