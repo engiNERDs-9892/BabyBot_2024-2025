@@ -24,25 +24,14 @@ public class intoTheDeepBasicNerd extends LinearOpMode {
                 .splineTo(new Vector2d(12, 24), Math.toRadians(135))
                 .build();
         Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
-                .addDisplacementMarker(()->{
-                    telemetry.addLine("Trajectory 2.");
-                    telemetry.update();
-                })
-                .lineTo(new Vector2d(60, 12))
-                .addDisplacementMarker(()->{
-                    telemetry.addLine("Trajectory 2..");
-                    telemetry.update();
-                })
-                .splineTo(new Vector2d(60, -12), Math.toRadians(270))
-                .addDisplacementMarker(()->{
-                    telemetry.addLine("Trajectory 2...");
-                    telemetry.update();
-                })
+                .lineToSplineHeading(new Pose2d(60, 12, Math.toRadians(270)))
+                .addDisplacementMarker(()->{telemetry.addLine("2.2");telemetry.update();})
+                .splineToSplineHeading(new Pose2d(60, -12, Math.toRadians(270)), Math.toRadians(270))
                 .build();
 
-        Trajectory trajE = drive.trajectoryBuilder(traj2.end())
-                .splineTo(new Vector2d(60, 12), Math.toRadians(270))
-                .splineTo(new Vector2d(12, 0), Math.toRadians(0))
+        Trajectory trajE = drive.trajectoryBuilder(traj2.end(), true)
+                .back(36)
+                .splineTo(new Vector2d(6, 0), Math.toRadians(180))
                 .build();
         telemetry.addLine("Done initializing trajectory");
         telemetry.addData("Pose: ", drive.getPoseEstimate());
@@ -50,17 +39,16 @@ public class intoTheDeepBasicNerd extends LinearOpMode {
 
         waitForStart();
         if (isStopRequested()) return;
-
-        drive.followTrajectory(traj1);
-        telemetry.addLine("Trajectory 1(Done)");
+        telemetry.addLine("Trajectory 1");
         telemetry.update();
+        drive.followTrajectory(traj1);
         sleep(2000);
+        telemetry.addLine("Trajectory 2");
+        telemetry.update();
         drive.followTrajectory(traj2);
         sleep(3000);
         telemetry.addLine("Trajectory 3");
         telemetry.update();
         drive.followTrajectory(trajE);
-        telemetry.addLine("Trajectory 3(Done)");
-        telemetry.update();
     }
 }
